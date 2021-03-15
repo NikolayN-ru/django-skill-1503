@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block content %}
+
+<h3>обновление новости</h3>
+<form method="POST">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <!-- <input type="submit" value="обновить"> -->
+    <button type="submit" class="btn btn-primary btn-block">сохранить</button>
+</form>
+
+
+{% endblock content %}

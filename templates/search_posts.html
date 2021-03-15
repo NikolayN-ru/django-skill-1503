@@ -1,0 +1,76 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+<div class='form1'>
+<form method="GET">
+    {{ filter.form.as_ul }}
+    <input type="submit" value="Найти">
+</form>
+</div>
+<!-- <hr>
+<form method="GET">
+    {{ filter.form.date }}
+    {{ filter.form.title }}
+    {{ filter.form.category }}
+    {{ filter.form.author }}
+    <input type="submit" value="Найти">
+    <hr>
+    {% for i in filter.form %}
+    <p>{{ i }}</p>
+    {% endfor %}
+</form>
+<hr> -->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Дата</th>
+      <th scope="col">Заголовок</th>
+      <th scope="col">пользователь</th>
+    </tr>
+  </thead>
+  {% for product in filter.qs %}
+  <tbody>
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ product.date }}</td>
+      <td>{{ product.title|Censor }}</td>
+      <td>{{ product.author }}</td>
+      <td><a href="{% url 'update' pk=product.pk %}"><button type="button" class="btn btn-warning">обновить</button></a></td>
+      <td><a href="{% url 'delete' pk=product.pk %}"><button type="button" class="btn btn-danger">удалить</button></a></td>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+
+ 
+{% if is_paginated %}
+ 
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+ 
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+ 
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+ 
+{% endif %}
+
+<hr><hr>
+ 
+
+
+
+
+{% endblock content %}

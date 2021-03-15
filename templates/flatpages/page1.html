@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+	<div class="alert alert-primary" role="alert">
+  <h1>{{ flatpage.title }}</h1>
+</div>
+	<p></p>
+	<div class="alert alert-primary" role="alert">
+  <h4>{{ flatpage.content }}</h4>
+</div></p>
+	<div class="alert alert-primary" role="alert">
+  <h6>{{ flatpage.url}}</h6>
+</div>
+
+{% endblock content %}

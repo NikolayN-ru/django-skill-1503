@@ -1,0 +1,167 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{% block title %}{% endblock title %}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/shop-homepage.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">тестовое задание</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <!-- <li class="nav-item active">
+            <a class="nav-link" href="/about/">О_нас
+              <span class="sr-only">(current)</span>
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/news/">новости</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create' %}">добавить новость</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'search' %}">поиск</a>
+          </li>
+<!--           <li class="nav-item">
+            <a class="nav-link" href="/contacts/">контакты</a>
+          </li> -->
+          <li class="nav-item">
+            {% if request.user.is_authenticated %}
+            <a class="nav-link" href="{% url 'logout' %}">выйти из записи</a>
+            
+            {% else %} 
+
+            <a class="nav-link" href="{% url 'login' %}">войти</a>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">зарегистрироваться</a></li>
+            <li class="nav-item">
+            <a class="nav-link" href="/accounts/login/">войти через  google</a>
+          </li>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-4">
+
+        <h4 class="my-4">----</h4>
+        <div class="list-group">
+          {% if request.user.is_authenticated %}
+          <div>
+          <h6>{{ user.username }} - персональная карточка</h6>
+          {% if is_not_premium %}
+          <button> <a href="{% url 'upgrade' %}"> Хочу автора!</a> </button>
+          {% else %}
+
+          <button> <a href="{% url 'upgrade' %}"> не хочу быть автором!</a> </button>
+          {% endif %}
+          <h5 class="list-group-item">{{ user.is_staff }}</h5>
+          <h5 class="list-group-item">{{ user.groups }}</h5>
+          <h5 class="list-group-item">дата входа - {{ user.last_login }}</h5>
+          <h5 class="list-group-item"> дата регистрации - {{ user.date_joined }}</h5>
+          </div>
+          {% endif %}
+          <a href="/page1/" class="list-group-item">страница 1 &#9733</a>
+          <a href="/page2/" class="list-group-item">страница 2 &#9733</a>
+          <a href="/page3/" class="list-group-item">страница 3 &#9734</a>
+        </div>
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-8">
+
+      	<hr><hr><hr>
+      	{% block content %}
+      	{% endblock content %}
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">блок 1</a>
+                </h4>
+                <h5>00.00</h5>
+                <p class="card-text">описание блока</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9734; &#9733; &#9734; &#9733;</small>
+              </div>
+            </div>
+          </div>
+
+
+      
+
+
+
+        
+
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white"> !! первый сайт на бутстрапе 2021 !!</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src='{% static "script.js"%}'></script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block content %}
+
+<form action="{% url 'form1' %}" method='POST'>
+	{% csrf_token %}
+	<p><label for="client_name">Your name</label>
+	<input type="text" name='client_name'></p>
+
+	<p><label for="message">Short description of your issue</label>
+	<input type="text" name='message'></p>
+
+	<p><label for="date">Choise time</label>
+	<input type="date" name='date'></p>
+	
+	<input type="submit">
+</form>
+
+{% endblock content %}

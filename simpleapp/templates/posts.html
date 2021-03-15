@@ -1,0 +1,27 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block content %}
+
+{{ time_now|date:'M d Y' }}
+{% if products %}
+<h2>всего новостей - {{ products|length }}</h2>
+<table>
+	<tr>	
+		<td> заголовок</td>
+		<td> дата</td>
+		<td> контент</td>
+	</tr>
+	{% for new in products %}
+	<tr>		
+		<td><h6>{{ new.title|multiply:8 }}</h6></td>
+		<td>{{ new.date|date:'d M Y' }}</td>
+		<td><h5>{{ new.content|truncatewords:20 }}</h5></td>
+		<td><a href="{{ new.id }}/">сылка-на-новость-{{new.id}}</a></td>
+	</tr>
+	{% endfor %}
+</table>
+{% else %}
+<h3>новостей нет</h3>
+{% endif %}
+{% endblock content %}

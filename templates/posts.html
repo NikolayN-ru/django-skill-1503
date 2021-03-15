@@ -1,0 +1,90 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+
+{{ time_now|date:'M d Y' }}
+
+{% if products %}
+<h2>всего новостей на странице - {{ products|length }}</h2>
+
+{% for i in category %}
+<a href="{{ i.get_absolute_url }}" class="btn btn-primary">{{ i }}</a>
+{% endfor %}
+<hr>
+
+{% if categoryid %}
+<p><a href="{{ categoryid.subscribe }}" class="btn btn-warning">подписаться</a> на категорию - {{ categoryid }} </p>
+{% endif %}
+
+{% if categoryidbed %}
+<p><a href="{{ categoryidbed.subscribebed }}" class="btn btn-warning">отписаться</a> на категорию - {{ categoryidbed }} </p>
+{% endif %}
+
+<!-- 	<tr>	
+		<td> заголовок</td>
+		<td> дата</td>
+		<td> контент</td>
+	</tr> -->
+<!-- 	{% for new in products %}
+	<tr>		
+		<td><h6>{{ new.title|Censor}}</h6></td>
+		<td>{{ new.date|date:'d M Y' }}</td>
+		<td><h5>{{ new.content|truncatechars:50|Censor }}</h5></td>
+		<td><a href="{{ new.id }}/">сылка-на-новость-{{new.id}}</a></td>
+	</tr>
+	{% endfor %} -->
+	{% for new in products %}
+	<div class="card">
+  <div class="card-header">
+    {{ new.date|date:'d M Y' }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ new.title|Censor}}</h5>
+    <p class="card-text">{{ new.content|truncatechars:50|Censor }}</p>
+    <a href="{{ new.get_absolute_url }}" class="btn btn-primary">подробнее-о новости-{{new.id}}</a>
+    <a href="{% url 'update' pk=new.pk %}"><button type="button" class="btn btn-warning">обновить</button></a>
+    <a href="{% url 'delete' pk=new.pk %}" class="btn btn-danger">удалить</a>
+    
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<h3>новостей нет</h3>
+{% endif %}
+
+<hr>
+{% if is_paginated %}
+ 
+    <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+ 
+    <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <!-- <a>{{ num }}</a> -->
+            <button type="button" class="btn btn-warning">{{ num }}</button>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <!-- <a href="?page={{ num }}">{{ num }}</a> -->
+            <a href="?page={{ num }}" class="btn btn-danger">{{ num }}</a>
+
+        {% endif %}
+    {% endfor %}
+ 
+    <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+ 
+{% endif %}
+
+
+
+
+
+{% endblock content %}

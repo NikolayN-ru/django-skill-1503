@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block content %}
+
+<h3>удаление новости</h3>
+<form method="POST" class="post-form">
+    {% csrf_token %} 
+    <p>{{ news.title }}</p>
+    {{ form.as_p }} 
+    <button type="submit" class="btn btn-primary btn-block">удалить новость</button>
+
+</form>
+
+
+{% endblock content %}

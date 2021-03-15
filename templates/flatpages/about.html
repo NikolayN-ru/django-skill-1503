@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>О нас</strong> {{ flatpage.content }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">{{ flatpage.url }}</h4>
+  <p>-url</p>
+  <hr>
+  <p class="mb-0">{{ flatpage.title }}</p>
+  <hr>
+  <p class="mb-0">{{ flatpage.template_name }}</p>
+</div>
+
+{% endblock content %}

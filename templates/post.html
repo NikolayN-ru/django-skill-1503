@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block content %}
+
+{% if new %}
+	<div class="alert alert-primary" role="alert">
+  		{{ new.date|date:'d M Y' }}
+	</div>
+	<div class="alert alert-success" role="alert">
+  		{{ new.title|Censor }}
+	</div>
+	<div class="alert alert-dark" role="alert">
+  		{{ new.content|Censor }}
+	</div>
+	<div class="alert alert-dark" role="alert">
+  		<p>рейтинг новости = {{ new.raiting }}</p>
+	</div>
+	<a href="{% url 'update' pk=new.pk %}"><button type="button" class="btn btn-warning">обновить</button></a>
+	<a href="{% url 'delete' pk=new.pk %}" class="btn btn-danger">удалить</a>
+	<hr>
+	<p>инициатор мероприятия -> {{ new.author|upper }}</p>
+{% endif %}
+
+{% endblock content %}
