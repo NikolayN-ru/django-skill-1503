@@ -59,32 +59,32 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         cat = Category.objects.get(pk=category)
         print(cat.subscribers.all(), 'участники категории')
         users = cat.subscribers.all()
-        post = Post(author=Author.objects.get(id=1), choice=request.POST['choice'], category=request.POST['category'],
-                    title=request.POST['title'], content=request.POST['content'], )
+        # post = Post(author=Author.objects.get(id=1), choice=request.POST['choice'], category=request.POST['category'],
+        #             title=request.POST['title'], content=request.POST['content'], )
 
         for user in users:
             print(user.email)
             if user.email:
                 print(f'нашли юзера, отправляем ему на емаил. {user.email}')
 
-                html_content = render_to_string(
-                    'post_created.html', {'post': post, 'user':user}
-                )
-                msg = EmailMultiAlternatives(
-                    subject=f'{user.email}',
-                    body=f'{client_text[:50]}',
-                    from_email='napadaylo89@mail.ru',
-                    to=[user.email, ],
-                )
-                msg.attach_alternative(html_content, "text/html")
-                msg.send() #отправка
-
-                # send_mail(
-                # 	subject = f'{user.email}',
-                # 	message = f'{client_text[:50]} - новая запись - ссылка на статью {}',
-                # 	from_email = 'napadaylo89@mail.ru',
-                # 	recipient_list = [user.email, ],
+                # html_content = render_to_string(
+                #     'post_created.html', {'post': post, 'user':user}
                 # )
+                # msg = EmailMultiAlternatives(
+                #     subject=f'{user.email}',
+                #     body=f'{client_text[:50]}',
+                #     from_email='napadaylo89@mail.ru',
+                #     to=[user.email, ],
+                # )
+                # msg.attach_alternative(html_content, "text/html")
+                # msg.send() #отправка
+
+                send_mail(
+                	subject = f'{user.email}',
+                	message = f'{client_text[:50]} - новая запись - ссылка на статью {}',
+                	from_email = 'napadaylo89@mail.ru',
+                	recipient_list = [user.email, ],
+                )
 
                 print('---------------------')
                 print(user.email)
