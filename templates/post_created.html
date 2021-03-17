@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ user.name }}</h1>
+    <h2>{{ post.title }} появился новый пост!</h2>
+    <p> дата {{ post.date|date:"d-M-Y" }}</p>
+    <p> начало поста {{ post.content|truncatechars:50 }} </p>
+    <p><a href="{{ post.get_absolute_url }}"></a></p>
+</body>
+</html>

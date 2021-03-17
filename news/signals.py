@@ -12,12 +12,12 @@ def notify_managers_appointment(sender, instance, created, **kwargs):
 	else:
 		subject = f'Appointment changed for {instance.client_name} {instance.date.strftime("%d %m %Y")}'
 
-	# send_mail(
-	# 	subject = subject,
-	# 	message = instance.message,
-	# 	from_email = 'NapadayloNikolay@yandex.ru', # от кого
-	# 	recipient_list = ['napadaylonikolay@gmail.com', ], # каму на почту придет это письмо	
-	# )
+	send_mail(
+		subject = subject,
+		message = instance.message,
+		from_email = 'NapadayloNikolay@yandex.ru', # от кого
+		recipient_list = ['napadaylonikolay@gmail.com', ], # кому на почту придет это письмо
+	)
 
 	print('обработка сигнала')
 	print(f'{subject}, {instance.message} - получилось')
@@ -37,7 +37,7 @@ def noname(sender, **kwargs):
 @receiver(post_save, sender=Post)
 def notify_managers_appointment(sender, instance, created, **kwargs):
 	print(kwargs, '****************')
-	print(list(instance.category), '*')
+	# print(list(instance.category), '*')
 # 	subject = f'{instance.author} {instance.date.strftime("%d %m %Y")}'
 # 	print()
 	# print(instance.category)

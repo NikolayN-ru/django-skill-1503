@@ -174,7 +174,7 @@ LOGIN_URL = '/accounts/login/'
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'napadaylo89@mail.ru'
-EMAIL_HOST_PASSWORD = '---'
+EMAIL_HOST_PASSWORD = 'vifWus-8setpe-jekhon'
 EMAIL_USE_SSL = True
 
 ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
